@@ -1,0 +1,14 @@
+以下是本地版本库操作，在gitbash命令行执行
+
+$mkdir 新建文件夹
+$git init 把文件夹变成git仓库
+$git add readme.txt  添加文件
+$git commit -m "提交说明"  提交文件
+$git status 查看状态
+$git diff "readme.txt" 查看与上一个版本差异
+$git log 查看提交日志
+$git log --pretty=oneling 简洁日志
+$git reflog 查看版本日志，包括回退操作
+$git reset --hard HEAD^ 回退到上一个版本，HEAD^可以是任意commit id,也可以写成HEAD~1,HEAD~100
+$git log --graph --pretty=format:'%h -%d &s(%cr) --abbrev-commit --reflog    查看操作日志，带时间
+$gitk 显示可视化版本树   
