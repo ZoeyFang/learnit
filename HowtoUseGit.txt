@@ -45,6 +45,8 @@ git add README.md
 git commit -m "first commit"
 git remote add origin https://github.com/ZoeyFang/learnit.git   --git remote add origin git@github.com/ZoeyFang/learnit.git
 git push -u origin master
+
+git remote rm origin 删除远程库
 ************已有本地库，创建一个远程库********************/
 
 /************先创建远程库，再拷贝到本地*******************
@@ -111,3 +113,52 @@ Changes not staged for commit:
 no changes added to commit (use "git add" and/or "git commit -a")
 
 ***********git stash暂存现场*****************************/
+
+
+/*********多人协作，这一部分要用的时候要再看一下，还没练习*******************************
+$git remote 查看远程库信息
+    $git remote -v 查看远程库信息
+$git push origin master 把master分支推送到远程库origin上
+master分支是主分支，因此要时刻与远程同步；
+dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；（在本地还是可以看到bug分支信息的（用no-ff），但是远程库上只会记录每次push的信息）
+feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
+
+$git clone git@github.com:ZoeyFang/learnit.git
+因此，多人协作的工作模式通常是这样：
+首先，可以试图用git push origin branch-name推送自己的修改；
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+如果合并有冲突，则解决冲突，并在本地提交；
+没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream branch-name origin/branch-name。
+这就是多人协作的工作模式，一旦熟悉了，就非常简单。
+小结
+查看远程库信息，使用git remote -v；
+本地新建的分支如果不推送到远程，对其他人就是不可见的；
+从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+*****************多人协作*******************************/
+
+/***************标签****************************
+Git有commit，为什么还要引入tag？
+“请把上周一的那个版本打包发布，commit号是6a5819e...”
+“一串乱七八糟的数字不好找！”
+如果换一个办法：
+“请把上周一的那个版本打包发布，版本号是v1.2”
+“好的，按照tag v1.2查找commit就行！”
+所以，tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起。
+
+可以理解为ip和域名的关系
+
+$git tag v1.0 用于新建一个标签，默认为HEAD(最新提交的commit上)，也可以指定一个commit id；
+$git tag -a <tagname> -m "blablabla..." <commit id>  可以指定标签信息,commit id默认是HEAD；
+$git tag 查看所有标签。
+$git push origin v1.0 推送本地标签v1.0到远程库；
+$git push origin --tags 推送全部未推送过的本地标签；
+$git tag -d v1.0 删除本地标签v1.0
+$git push origin :refs/tags/v1.0 删除远程标签v1.0(要先删除本地的，再删除远程的)，注意origin和：中间有个空格
+要回退到某个版本，可以先git show v1.0，查看v1.0的commit id，然后再回退git reset --hard <commit id>
+ctrl+c 退出当前命令行
+****************标签*******************************/
