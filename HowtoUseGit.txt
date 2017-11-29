@@ -2,13 +2,21 @@
 
 $mkdir 新建文件夹
 $git init 把文件夹变成git仓库
-$git add readme.txt  添加文件
-$git commit -m "提交说明"  提交文件
+$git add readme.txt  添加文件到stage(暂存区)
+$git commit -m "提交说明"  把暂存区的文件提交到master（当前分支）
 $git status 查看状态
 $git diff "readme.txt" 查看与上一个版本差异
+     $git diff    #是工作区(work dict)和暂存区(stage)的比较
+     $git diff --cached    #是暂存区(stage)和分支(master)的比较
 $git log 查看提交日志
 $git log --pretty=oneling 简洁日志
 $git reflog 查看版本日志，包括回退操作
 $git reset --hard HEAD^ 回退到上一个版本，HEAD^可以是任意commit id,也可以写成HEAD~1,HEAD~100
 $git log --graph --pretty=format:'%h -%d &s(%cr) --abbrev-commit --reflog    查看操作日志，带时间
 $gitk 显示可视化版本树   
+
+
+命令git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+总之，就是让这个文件回到最近一次git commit或git add时的状态。
