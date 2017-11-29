@@ -54,7 +54,7 @@ $ git clone git@github.com:michaelliao/gitskills.git   --使用git协议
 ************先创建远程库，再拷贝到本地*******************/
 
 
-/*********git的分支***************************/
+/*********git的分支***************************
 多个人一起协作时，可以创建一个自己的分支，这样可以随时修改随时提交，且不会影响到他人工作（他人的视图还是master分支，dev分支只有自己看得到），等工作完成，再把dev分支和master分支合并，删除dev分支即可
 git保存的是修改，切换不同的分支时修改下节点就好了，因而git分支的新建和合并是非常快的
 $git checkout -b dev  创建并切换到dev分支
@@ -63,8 +63,8 @@ $git checkout -b dev  创建并切换到dev分支
 $git branch 查看当前项目有多少个分支，自己所处的分支前面会标星号（*）
 $git merge dev 切换到master分支执行该命令，表示把dev分支融合到master分支
 $git branch -d dev 删除dev分支即可
-    git push origin :dev 删除远程分支dev，origin和:dev之间有空格
-
+    $git push origin :dev 删除远程分支dev，origin和:dev之间有空格
+    $git branch -D feature-vulcanGit   要删除没有合并的分支，需要强行删除-D
 要是多个分支修改了同一个文件，合并时会报冲突，需要手动处理。
 	
 用带参数的git log也可以看到分支的合并情况：
@@ -75,3 +75,39 @@ $ git log --graph --pretty=oneline --abbrev-commit
 * | 400b400 & simple
 |/
 * fec145a branch test
+
+如果没有冲突，合并且删除分支后，就只有一条主线，不会像上面这样可以看得到分支情况，如果想要保留分支信息，就加no-ff
+git merge --no-ff -m "merge with no-ff" dev
+实际开发中，master分支是主线，应该保证它是稳定的，dev分支是大家协作开发用的，每个人从dev分支上分出自己的分支，写完后合并到dev分支上，dev确保没问题了，再合并到master分支上发布
+******************git的分支*********************************/
+
+/***********git stash暂存现场*****************************
+修复bug时，可以通过创建新的bug分支进行修复，然后合并，最后删除；
+当手头工作没有完成不想提交时，可以先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场。
+git stash 保存工作现场，此时暂存区（stage）是干净的，可以放心去创建新的分支，修复bug等
+git stash list 查看保存的工作现场
+git stash apply 恢复工作现场，不删除stash
+git stash apply stash@{0}  恢复指定的工作现场，不删除stash
+git stash drop 删除stash内容
+git stash pop  恢复工作现场，并删除stash内容
+
+$ git stash
+Saved working directory and index state WIP on master: 4bba265 how to deal with conflicts
+
+$ git stash list
+stash@{0}: WIP on master: 4bba265 how to deal with conflicts
+
+$ git stash apply
+On branch master
+Your branch is ahead of 'o/master' by 5 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   HowtoUseGit.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+***********git stash暂存现场*****************************/
