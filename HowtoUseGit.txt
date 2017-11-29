@@ -16,7 +16,16 @@ $git log --graph --pretty=format:'%h -%d &s(%cr) --abbrev-commit --reflog    查
 $gitk 显示可视化版本树   
 
 
-命令git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+命令git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销（用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。），这里有两种情况：
 一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
 一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
 总之，就是让这个文件回到最近一次git commit或git add时的状态。
+
+git reset HEAD file可以把暂存区的修改撤销掉（unstage），重新放回工作区
+
+小结：
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+
+$ git rm test.txt  删除版本库文件(本地已删除，版本库还有时)，如果是删错了，那就git checkout -- test.txt还原回来
