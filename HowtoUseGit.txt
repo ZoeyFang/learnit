@@ -52,3 +52,26 @@ git push -u origin master
 $ git clone https://github.com/ZoeyFang/gitskills.git   --使用https协议
 $ git clone git@github.com:michaelliao/gitskills.git   --使用git协议
 ************先创建远程库，再拷贝到本地*******************/
+
+
+/*********git的分支***************************/
+多个人一起协作时，可以创建一个自己的分支，这样可以随时修改随时提交，且不会影响到他人工作（他人的视图还是master分支，dev分支只有自己看得到），等工作完成，再把dev分支和master分支合并，删除dev分支即可
+git保存的是修改，切换不同的分支时修改下节点就好了，因而git分支的新建和合并是非常快的
+$git checkout -b dev  创建并切换到dev分支
+    相当于$git checkout dev  创建dev分支
+	      $git branch dev 切换到dev分支
+$git branch 查看当前项目有多少个分支，自己所处的分支前面会标星号（*）
+$git merge dev 切换到master分支执行该命令，表示把dev分支融合到master分支
+$git branch -d dev 删除dev分支即可
+    git push origin :dev 删除远程分支dev，origin和:dev之间有空格
+
+要是多个分支修改了同一个文件，合并时会报冲突，需要手动处理。
+	
+用带参数的git log也可以看到分支的合并情况：
+$ git log --graph --pretty=oneline --abbrev-commit
+*   59bc1cb conflict fixed
+|\
+| * 75a857c AND simple
+* | 400b400 & simple
+|/
+* fec145a branch test
