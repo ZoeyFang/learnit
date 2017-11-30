@@ -1,0 +1,17 @@
+https://www.cnblogs.com/dongying/p/6262935.html
+
+shell编程学习
+1.文件格式
+#!/bin/bash     #表示注释，第一行为固定格式，指定shell类型，这里用bash shell
+#shell programing test
+echo hello world!
+#Linux中，文件名可以是任意后缀或者没有后缀，保存为.sh更容易想到是shell脚本
+赋予可执行权限：chmod +x fz.sh
+输出：
+/ztesoft/hbweb/hbweb/fz>./fz.sh
+hello world!
+#如果执行fz.sh，会默认从$path环境变量中查找，./表示从当前目录查找。
+#也可以这样运行 /bin/sh fz.sh 即指定/bin/sh来执行，脚本中的/bin/bash将不会生效。
+
+2.变量
+
