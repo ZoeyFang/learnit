@@ -14,4 +14,27 @@ hello world!
 #也可以这样运行 /bin/sh fz.sh 即指定/bin/sh来执行，脚本中的/bin/bash将不会生效。
 
 2.变量
+shell编程中变量分为两种，一种是linux已定义的环境变量（一般大写），一种是自定义变量
+echo $PATH  #输出环境变量的值，注意大小写
+练习：
+[Chnweb1@vm8551 /ztesoft/Chnweb1/Oracle/Middleware/user_projects/domains/hnbss_domain/apps/log]$echo $path   #小写时没有结果，因为没有定义这个环境变量
+
+[Chnweb1@vm8551 /ztesoft/Chnweb1/Oracle/Middleware/user_projects/domains/hnbss_domain/apps/log]$cd
+[Chnweb1@vm8551 /ztesoft/Chnweb1]$echo $PATH
+/ztesoft/Chnweb1/impsys/imp:.:/ztesoft/Chnweb1/apache-maven-3.5.0/bin:/ztesoft/Chnweb1/jdk1.7.0_79/bin:/tt/TimesTen/tt1122/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/ztesoft/Chnweb1/bin
+
+hello="hello world"
+echo $hello
+练习：
+/ztesoft/hbweb>hello = hello world  #等号左右不要有空格
+-bash: hello: command not found
+/ztesoft/hbweb>hello="hello world"
+/ztesoft/hbweb>echo $hello
+hello world
+
+3.赋值
+将linux命令的执行结果赋给变量
+#!/bin/bash
+path=$(pwd)
+files='ls -al'
 
