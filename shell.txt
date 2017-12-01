@@ -1,6 +1,9 @@
-https://www.cnblogs.com/dongying/p/6262935.html
-
 shell编程学习
+shell编程其实真的很简单https://www.cnblogs.com/dongying/p/6262935.html
+共五篇文章
+
+#######################################################################################
+第一篇：变量定义和使用
 1.文件格式
 #!/bin/bash     #表示注释，第一行为固定格式，指定shell类型，这里用bash shell
 #shell programing test
@@ -35,6 +38,111 @@ hello world
 3.赋值
 将linux命令的执行结果赋给变量
 #!/bin/bash
-path=$(pwd)
-files='ls -al'
+path=$(pwd)           #将pwd命令的执行结果赋值给path变量
+files='ls -al'        #将ls -a的执行结果赋值给files变量，注意不是单引号，是直接按键盘上~按键对应的符号
+echo current path:$path
+echo files:$files
+练习：
+/ztesoft/hbweb>path=$(pwd)
+/ztesoft/hbweb>echo path       #输出path这个字符串
+path
+/ztesoft/hbweb>echo $path      #输出path变量对应的值
+/ztesoft/hbweb
+/ztesoft/hbweb>pwd             #执行pwd命令
+/ztesoft/hbweb
+/ztesoft/hbweb>echo $pwd       #输出pwd变量对应的值
+
+/ztesoft/hbweb>echo $(pwd)     #输出pwd命令的输出结果，命令要用括号包起来
+/ztesoft/hbweb
+#以下为错误使用（用的单引号键）
+/ztesoft/hbweb>files='ls -a'   #其实是给files变量赋值，值为ls -a  
+/ztesoft/hbweb>echo $files
+ls -a
+/ztesoft/hbweb>echo $(files)    #files只是变量，自然not found
+-bash: files: command not found
+
+/ztesoft/hbweb>echo $(ls -a)     
+. .. ant ant.tar .bash_history .bash_logout .bash_profile .bashrc bsnweb_prodigy.jar .gnome2 hbweb .java jdk1.6 jdk16.tar .mozilla .ssh .vim .viminfo .Xauthority
+#以下为正确使用··（~对应的按键）
+/ztesoft/hbweb>files=~ls -a~
+-bash: -a~: command not found
+/ztesoft/hbweb>files=~ls -a1~
+-bash: -a1~: command not found
+/ztesoft/hbweb>files=`ls -a`
+/ztesoft/hbweb>echo $files
+. .. ant ant.tar .bash_history .bash_logout .bash_profile .bashrc bsnweb_prodigy.jar .gnome2 hbweb .java jdk1.6 jdk16.tar .mozilla .ssh .vim .viminfo .Xauthority
+
+###################################################################################
+第二篇 基本数据类型运算
+1.操作符
+四则运算：跟其他语言一样
++ 加 10+10=20
+- 减
+* 乘 10*2=20
+/ 除 10/3=3（取整）
+% 求余 10%3=1
+判断条件：即条件成立返回1，条件不成立返回0
+== 判断是否想等，相等返回1，否则为0
+!= 不相等则返回1，否则0
+>= 前者大于后者返回1，否则0
+<= 前者小于后者返回1，否则0
+> 大于 前者大于后者返回1，否则0
+< 小于 前者小于后者返回1，否则0
+>= 大于或等于
+<= 小于或等于
+
+2.数据运算
+1.整数运算
+两种方式：expr命令或者方括号$[]
+练习：
+1） expr命令
+/ztesoft/hbweb>expr 10+3    #错误，操作符左右没加空格
+10+3
+/ztesoft/hbweb>expr 10 + 3  #正确，操作符左右有空格
+13
+/ztesoft/hbweb>expr 10 * 3  #错误，乘要用转义，否则识别不了
+expr: syntax error
+/ztesoft/hbweb>expr 10 \* 3  #正确
+30
+/ztesoft/hbweb>expr 10 / 3
+3
+/ztesoft/hbweb>expr 10 % 3
+1
+/ztesoft/hbweb>expr 10==3    #错误，条件运算符左右也要加空格
+10==3
+/ztesoft/hbweb>expr 10 == 3   #正确
+0
+/ztesoft/hbweb>num1 = $(expr 1 + 1)  #错误，将运算结果赋给变量，赋值号不要加空格
+-bash: num1: command not found
+/ztesoft/hbweb>num1=$(expr 10 + 3)   #正确
+/ztesoft/hbweb>echo $num1
+13
+/ztesoft/hbweb>num2=`expr 10 \* 3`
+/ztesoft/hbweb>echo $num2
+30
+
+2） 方括号
+/ztesoft/hbweb>num1=1
+/ztesoft/hbweb>num2=3
+/ztesoft/hbweb>echo "num1 + num2=$[num1 + num2]" #注意，要带引号
+num1 + num2=4
+/ztesoft/hbweb>echo "num1 \* num2=$[num1 \* num2]"  #乘法在方括号里不需要转义
+-bash: num1 \* num2: syntax error: invalid arithmetic operator (error token is "\* num2")
+/ztesoft/hbweb>echo "num1 * num2=$[num1 * num2]"    
+num1 * num2=3
+
+3) 浮点运算
+用bash的计算器（bc）
+variable=$(echo "option;expression"|bc) 
+option是bc的一些选项，man bc查看具体用法，如通过scale设置保留两位小数
+expression 表达式，如1 * 3
+| 管道，连接上一个命令的返回结果和下一个命令，即将上一个命令的返回结果作为下一个命令的参数
+num=$(echo "scale=2;10 / 3"|bc)  #10 /3，保留两位小数
+echo $num
+练习：/ztesoft/hbweb>num=$(echo "scale=2; 10 / 3" | bc)  #注意双引号的位置
+/ztesoft/hbweb>echo $num
+3.33
+/ztesoft/hbweb>num=`echo "scale=2; 10 / 3" | bc`
+/ztesoft/hbweb>echo $num
+3.33
 
