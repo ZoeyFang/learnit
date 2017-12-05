@@ -181,5 +181,14 @@ fi
 test condition
 test命令只能判断三类条件：数值比较、字符串比较和文本比较
 man test 查看具体用法
+数值比较：
+n1 -eq n2 判断n1是否等于n2
+n1 -ge n2 判断n1是否大于或等于n2
+n1 -gt n2 判断n1是否大于n2
+n1 -le n2 判断n1是否小于或等于n2
+n1 -lt n2 判断n1是否小于n2
+n1 -ne n2 判断n1是否不等于n2
+
+
 
 

@@ -1,0 +1,71 @@
+python学习
+依旧是廖雪峰老师的课
+
+1.安装python
+下载安装，python3,注意，安装在C盘，那么后续编写的程序也要放在C盘
+编辑器用notepad++
+
+2.第一个python程序
+windows下执行程序，dos下打开文件目录，python hello.py执行
+输出：
+print("hello world")等同于
+print("hello","world")其中，逗号输出为空格
+printf(100 + 100) 输出200
+输入：
+name = input() 接收键盘输入
+print(name) 打印接收的name值
+# 注释用
+E:\zoey.fang\learnit>python
+Python 3.6.3 (v3.6.3:2c5fed8, Oct  3 2017, 17:26:49) [MSC v.1900 32 bit (Intel)]
+ on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> print('''learn1    #'''...'''等同于\n
+... learn2
+... learn3''')
+learn1
+learn2
+learn3
+>>> print('r\\\n')    #\转义
+r\
+
+>>> print(r'\\\n')     #第一个字符为r，表示默认不转义
+\\\n
+
+布尔值True和False 注意大小写，可以用and，not，or
+
+代码hello.py
+name = input()
+if name == 'fang':      #末尾加冒号
+    print('I\'m fang')
+else:                       #末尾加冒号
+    print('I\'m not fang')
+执行：python hello.py
+输出：	
+E:\zoey.fang\learnit>python hello.py
+fang
+I'm fang
+
+E:\zoey.fang\learnit>python hello.py
+zhen
+I'm not fang
+
+python是动态语言，即变量本身类型不固定，与动态语言相对的是静态语言，必须指定变量类型，如果赋值的时候变量类型不匹配，就会报错。
+>>> a = 'abc'   #python解释器在内存中创建一个'abc'的字符串，并创建一个指向'abc'的名为a的变量
+>>> b = a     #b也指向'abc'
+>>> a = 'xyz'  
+>>> print(a)
+xyz
+>>> print(b)
+abc
+
+常量，在python中通常用大写的变量名来表示常量
+PI = 3.141592653
+
+>>> 10 / 3     #除法
+3.3333333333333335
+>>> 10 // 3     #除法，只保留整数部分
+3
+>>> 10 % 3        #取余
+1
+
+
